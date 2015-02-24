@@ -40,16 +40,20 @@ public abstract class PPBase implements Listener, CommandExecutor {
 
 	protected void onDisable() {}
 
-	protected void setHasEvents(boolean b) {
-		hasEvents = b;
+	public String getName() {
+		return NAME;
+	}
+
+	protected void setHasEvents() {
+		hasEvents = true;
 	}
 
 	public boolean hasEvents() {
 		return hasEvents;
 	}
 
-	protected void setNeedsFolder(boolean b) {
-		needsFolder = b;
+	protected void setNeedsFolder() {
+		needsFolder = true;
 	}
 
 	public boolean needsFolder() {
