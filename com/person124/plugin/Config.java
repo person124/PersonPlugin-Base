@@ -8,7 +8,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class Config {
 
-	public static FileConfiguration createConfig(File f, Object[] values) {
+	public static FileConfiguration create(File f, Object ... values) {
 		if (!f.exists()) {
 			FileConfiguration config = null;
 			try {
