@@ -22,10 +22,10 @@ public class PersonPlugins extends JavaPlugin {
 		if (CONFIGURABLE) {
 			createFolder();
 			cfgFile = new File(getDataFolder(), getName() + ".prsn");
-			Object[] strs = new Object[SUB_PLUGINS.length];
-			for (int i = 0; i < strs.length * 2; i++) {
-				strs[i] = SUB_PLUGINS[i].getName();
-				strs[i + 1] = true;
+			Object[] strs = new Object[SUB_PLUGINS.length * 2];
+			for (int i = 0; i < SUB_PLUGINS.length; i++) {
+				strs[i * 2] = SUB_PLUGINS[i].getName();
+				strs[(i * 2) + 1] = true;
 			}
 			config = Config.create(cfgFile, strs);
 		}
