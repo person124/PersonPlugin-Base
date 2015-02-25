@@ -2,8 +2,7 @@ package com.person124.plugin;
 
 import java.io.File;
 
-import org.bukkit.plugin.configuration.file.FileConfiguration;
-import org.bukkit.plugin.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PersonPlugins extends JavaPlugin {
@@ -15,7 +14,7 @@ public class PersonPlugins extends JavaPlugin {
 	private FileConfiguration config;
 	
 	public PersonPlugins(boolean config, PPBase... plugins) {
-		CONFIGURABLE = config
+		CONFIGURABLE = config;
 		SUB_PLUGINS = plugins;
 	}
 	
@@ -23,15 +22,15 @@ public class PersonPlugins extends JavaPlugin {
 		if (CONFIGURABLE) {
 			createFolder();
 			cfgFile = new File(getDataFolder(), getName() + ".prsn");
-			String[] strs = new String[plugins.length];
+			Object[] strs = new Object[SUB_PLUGINS.length];
 			for (int i = 0; i < strs.length * 2; i++) {
-				strs[i] = plugins[i].getName();
+				strs[i] = SUB_PLUGINS[i].getName();
 				strs[i + 1] = true;
 			}
-			config = Config.createConfig(cfgFile, strs);
+			config = Config.create(cfgFile, strs);
 		}
 		for (PPBase ppb : SUB_PLUGINS) {
-			if (config.getBoolean(ppb.getName()) {
+			if (config.getBoolean(ppb.getName())) {
 				if (ppb.needsFolder()) createFolder();
 				ppb.onActivated(this);
 				if (ppb.hasEvents()) getServer().getPluginManager().registerEvents(ppb, this);
