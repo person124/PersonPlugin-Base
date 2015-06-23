@@ -1,5 +1,5 @@
 # PersonPlugin-Base
-VERSION: 1.4
+VERSION: 1.5
 
 This is the base I will use for most of my mc plugin creation. It probability won't update much.
 

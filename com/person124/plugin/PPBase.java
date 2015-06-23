@@ -1,13 +1,7 @@
 package com.person124.plugin;
 
-import java.lang.reflect.Field;
-
-import net.minecraft.server.v1_8_R1.TileEntityChest;
-
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.craftbukkit.v1_8_R1.block.CraftChest;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -89,19 +83,6 @@ public abstract class PPBase implements Listener, CommandExecutor {
 			}
 		}
 		pp.getServer().addRecipe(recipe);
-	}
-
-	protected static void setChestName(Location loc, String name) {
-		try {
-			loc.getBlock().setType(Material.CHEST);
-
-			Field inventoryField = CraftChest.class.getDeclaredField("chest");
-			inventoryField.setAccessible(true);
-			TileEntityChest teChest = ((TileEntityChest) inventoryField.get((CraftChest) loc.getBlock().getState()));
-			teChest.a(name);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 }
