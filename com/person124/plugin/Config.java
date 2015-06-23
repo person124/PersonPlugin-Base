@@ -20,11 +20,25 @@ public class Config {
 				}
 
 				config.save(f);
+				String[] temp = f.getAbsolutePath().split("/");
+				System.out.println("Creating new file: " + temp[temp.length - 1] + "....");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			return config;
 		} else return YamlConfiguration.loadConfiguration(f);
+	}
+	
+	public static void createFile(File f) {
+		if (!f.exists()) {
+			try {
+				f.createNewFile();
+				String[] temp = f.getAbsolutePath().split("/");
+				System.out.println("Creating new file: " + temp[temp.length - 1] + "....");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
