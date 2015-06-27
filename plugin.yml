@@ -1,0 +1,4 @@
+name: PersonPluginBase
+version: 1.7
+main: com.person124.plugin.PersonBase
+author: person124
