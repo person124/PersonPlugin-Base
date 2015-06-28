@@ -1,4 +1,4 @@
 name: PersonPluginBase
-version: 1.8
+version: 1.10
 main: com.person124.plugin.PersonBase
 author: person124
