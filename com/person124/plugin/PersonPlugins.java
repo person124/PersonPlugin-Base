@@ -38,7 +38,7 @@ public class PersonPlugins extends JavaPlugin {
 			config = Config.create(cfgFile, strs);
 		}
 		for (PPBase ppb : SUB_PLUGINS) {
-			if (config.getBoolean(ppb.getName())) {
+			if (isEnabled(ppb.getName())) {
 				if (ppb.needsFolder()) createFolder();
 				ppb.onActivated(this);
 				if (ppb.hasEvents()) getServer().getPluginManager().registerEvents(ppb, this);
@@ -49,7 +49,7 @@ public class PersonPlugins extends JavaPlugin {
 
 	public void onDisable() {
 		for (PPBase ppb : SUB_PLUGINS) {
-			if (config.getBoolean(ppb.getName())) ppb.onDeactivated();
+			if (isEnabled(ppb.getName())) ppb.onDeactivated();
 		}
 	}
 
@@ -119,7 +119,7 @@ public class PersonPlugins extends JavaPlugin {
 	private void reloadSub(Player p, String name) {
 		for (PPBase plugin : SUB_PLUGINS) {
 			if (plugin.getName().equalsIgnoreCase(name)) {
-				if (config.getBoolean(plugin.getName())) {
+				if (isEnabled(plugin.getName())) {
 					plugin.onDeactivated();
 					plugin.onActivated(this);
 					if (p != null) p.sendMessage(ChatColor.GOLD + "Sub-plugin: " + name + " has been reloaded.");
@@ -161,6 +161,13 @@ public class PersonPlugins extends JavaPlugin {
 				break;
 		}
 		return s;
+	}
+	
+	private boolean isEnabled(String name) {
+		if (CONFIGURABLE) {
+			return config.getBoolean(name);
+		}
+		return true;
 	}
 
 }
