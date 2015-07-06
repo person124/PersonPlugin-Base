@@ -4,6 +4,7 @@ import java.io.File;
 
 import net.md_5.bungee.api.ChatColor;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -12,6 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PersonPlugins extends JavaPlugin {
 
+	public static PersonPlugins instance;
+	
 	private final boolean CONFIGURABLE;
 	private final PPBase[] SUB_PLUGINS;
 
@@ -24,6 +27,7 @@ public class PersonPlugins extends JavaPlugin {
 	public PersonPlugins(boolean config, PPBase... plugins) {
 		CONFIGURABLE = config;
 		SUB_PLUGINS = plugins;
+		instance = this;
 	}
 
 	public void onEnable() {
@@ -43,6 +47,7 @@ public class PersonPlugins extends JavaPlugin {
 				ppb.onActivated(this);
 				if (ppb.hasEvents()) getServer().getPluginManager().registerEvents(ppb, this);
 				if (ppb.hasCommand()) getCommand(ppb.getCommand()).setExecutor(ppb);
+				if (ppb.hasTabCompleter()) getCommand(ppb.getCommand()).setTabCompleter(ppb.getTabCompleter());
 			}
 		}
 	}
@@ -168,6 +173,13 @@ public class PersonPlugins extends JavaPlugin {
 			return config.getBoolean(name);
 		}
 		return true;
+	}
+	
+	public OfflinePlayer getOfflinePlayer(String name) {
+		for (OfflinePlayer p : getServer().getOfflinePlayers()) {
+			if (p.getName().equalsIgnoreCase(name)) return p;
+		}
+		return null;
 	}
 
 }

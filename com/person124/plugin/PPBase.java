@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -19,6 +20,7 @@ public abstract class PPBase implements Listener, CommandExecutor {
 	private final String NAME;
 	private boolean hasEvents = false, needsFolder = false;
 	private String command;
+	private TabCompleter completer;
 
 	public PPBase(String name) {
 		this.NAME = name;
@@ -72,6 +74,18 @@ public abstract class PPBase implements Listener, CommandExecutor {
 	public String getCommand() {
 		return command;
 	}
+	
+	protected void setTabCompleter(TabCompleter tab) {
+		completer = tab;
+	}
+	
+	public boolean hasTabCompleter() {
+		return completer != null;
+	}
+	
+	public TabCompleter getTabCompleter() {
+		return completer;
+	}
 
 	protected void addRecipe(ItemStack result, Object[] craft) {
 		ShapedRecipe recipe = new ShapedRecipe(result);
@@ -109,6 +123,11 @@ public abstract class PPBase implements Listener, CommandExecutor {
 			return;
 		}
 		((TileEntityChest) te).a(name);
+	}
+	
+	public static String invName(String in) {
+		if (in.length() <= 32) return in;
+		return in.substring(0, 32);
 	}
 
 }
